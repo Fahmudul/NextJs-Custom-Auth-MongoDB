@@ -1,4 +1,9 @@
+import axios from "axios";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
+import { LuEye, LuEyeOff } from "react-icons/lu";
 interface LoginFormProps {
   showSignUpForm: boolean;
   setShowSignUpForm: (value: boolean) => void;
@@ -7,26 +12,81 @@ const LoginForm: React.FC<LoginFormProps> = ({
   showSignUpForm,
   setShowSignUpForm,
 }) => {
+  const emailRef = React.useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Handle form submission
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const data = {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+    };
+
+    // Send data to server
+    const response = await axios.post("/api/auth/Login", data);
+    if (response?.data?.status === 200) {
+      router.push("/Dashboard/profile");
+    }
+  };
+  const handleResetPassword = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    const email = emailRef.current?.value;
+    if (!email) {
+      alert("Please enter your email");
+      return;
+    }
+    const response = await axios.post("/api/auth/reset-password", { email });
+    // console.log(response?.data?.status);
+    if (response?.data?.status === 200) {
+      toast.success("Password reset email sent");
+    } else {
+      toast.error(response?.data?.message);
+    }
+  };
   return (
     <div className={`c_container ${showSignUpForm ? "hidden" : "block"}`}>
       <div className="c_heading">Sign In</div>
-      <form action="" className="c_form">
+      <form action="" className="c_form" onSubmit={handleLogin}>
         <input
           required
+          ref={emailRef}
           className="input"
           type="email"
           name="email"
           placeholder="E-mail"
         />
-        <input
-          required
-          className="input"
-          type="password"
-          name="password"
-          placeholder="Password"
-        />
+        <div className="relative">
+          <input
+            required
+            className="input"
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Password"
+          />
+          {showPassword ? (
+            <LuEyeOff
+              className="absolute right-5 top-8"
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          ) : (
+            <LuEye
+              className="absolute right-5 top-8"
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          )}
+        </div>
         <span className="forgot-password">
-          <a href="#">Forgot Password ?</a>
+          <button
+            className="text-blue-500 text-xs hover:underline"
+            onClick={handleResetPassword}
+          >
+            Forgot Password ?
+          </button>
         </span>
         <input className="login-button" type="submit" defaultValue="Sign In" />
         <span className="text-xs text-blue-400">

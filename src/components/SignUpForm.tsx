@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React from "react";
+import toast from "react-hot-toast";
+import { LuEye, LuEyeOff } from "react-icons/lu";
 
 interface SignUpFormProps {
   showSignUpForm: boolean;
@@ -11,6 +13,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
   setShowSignUpForm,
 }) => {
   const router = useRouter();
+  const [showPassword, setShowPassword] = React.useState(false);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Handle form submission
@@ -36,7 +39,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
 
     // Send data to server
     const response = await axios.post("/api/auth/SignUp", data);
-    console.log(response.data);
+    toast.success(response.data);
     if (response.data.message === "User created successfully") {
       router.push("/login-sign-up");
     }
@@ -59,13 +62,26 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
           name="email"
           placeholder="E-mail"
         />
-        <input
-          required
-          className="input"
-          type="password"
-          name="password"
-          placeholder="Password"
-        />
+        <div className="relative">
+          <input
+            required
+            className="input"
+            type={showPassword ? "text" : "password"}
+            name="password"
+            placeholder="Password"
+          />
+          {showPassword ? (
+            <LuEyeOff
+              className="absolute right-5 top-8"
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          ) : (
+            <LuEye
+              className="absolute right-5 top-8"
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          )}
+        </div>
         <input className="login-button" type="submit" defaultValue="Sign In" />
         <div className="text-xs text-blue-400 text-center w-full">
           Already have an account ?{" "}

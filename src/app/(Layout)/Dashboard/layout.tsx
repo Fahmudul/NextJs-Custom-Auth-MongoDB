@@ -1,4 +1,10 @@
+import Link from "next/link";
 import { RiMenu2Fill } from "react-icons/ri";
+import { PiSignOut } from "react-icons/pi";
+import { cookies } from "next/headers";
+import axios from "axios";
+import LogoutBtn from "@/components/LogoutBtn";
+
 export default function RootLayout({
   children,
 }: {
@@ -26,13 +32,18 @@ export default function RootLayout({
                 aria-label="close sidebar"
                 className="drawer-overlay"
               ></label>
-              <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+              <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4 flex flex-col justify-between">
                 {/* Sidebar content here */}
-                <li>
-                  <a>Sidebar Item 1</a>
-                </li>
-                <li>
-                  <a>Sidebar Item 2</a>
+                <div>
+                  <li>
+                    <Link href={`/Dashboard/profile`}>Sidebar Item 1</Link>
+                  </li>
+                  <li>
+                    <Link href={`/Dashboard/test`}>Sidebar Item 2</Link>
+                  </li>
+                </div>
+                <li className="text-xl">
+                  <LogoutBtn />
                 </li>
               </ul>
             </div>

@@ -15,8 +15,22 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "User password is required"],
     },
-    isVerified: Boolean,
-    isAdmin: Boolean,
+    date: {
+      type: Date,
+      default: Date.now,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    verifyToken: String,
+    verifyTokenExpiry: Date,
+    resetPasswordToken: String,
+    resetPasswordTokenExpiry: Date,
   },
   {
     collection: "allusers",
