@@ -39,9 +39,11 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
 
     // Send data to server
     const response = await axios.post("/api/auth/SignUp", data);
-    toast.success(response.data);
-    if (response.data.message === "User created successfully") {
-      router.push("/login-sign-up");
+    if (response.data.status === 200) {
+      toast.success(response?.data?.message);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   };
   return (

@@ -12,12 +12,9 @@ export const POST = async (req: NextRequest) => {
     // console.log(body);
     const user = await User.findOne({ email });
     if (user) {
-      return NextResponse.json(
-        { message: "User already exists" },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: "User already exists", status: 400 });
     }
-    
+
     const hashedPassword = await bcryptjs.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword });
     const savedUser = await newUser.save();
@@ -25,6 +22,7 @@ export const POST = async (req: NextRequest) => {
     if (sendEmail === "Email sent successfully") {
       return NextResponse.json({
         message: "A verification link has been sent to your email",
+        status: 200,
       });
     }
   } catch (error: any) {
