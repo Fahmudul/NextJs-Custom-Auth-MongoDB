@@ -44,7 +44,7 @@ export const SendEmail = async (
     subject: "Verify Email",
     text: "Please click the link below",
     html: `Click the link below to <a href="${
-      process.env.NEXT_DOMAIN
+      process.env.NEXT_PUBLIC_BASE_URL
     }/${emailType}?token=${token}">${
       emailType === "verify-email" ? "Verify Email" : "Reset Password"
     }</a> or copy and paste this link in your browser: ${
@@ -58,7 +58,7 @@ export const SendEmail = async (
     if (error) {
       errorMessage = error.toString();
     } else {
-      // console.log("Email sent: ", info.response);
+      console.log("Email sent: ", info.response);
       successInfo = info.response.toString();
     }
   });

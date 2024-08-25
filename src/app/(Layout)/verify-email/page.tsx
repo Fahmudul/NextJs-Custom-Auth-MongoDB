@@ -9,9 +9,15 @@ const VerifyEmail = () => {
   const router = useRouter();
   // console.log(token);
   const verifyEmail = async () => {
-    const response = await axios(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/verify-email?token=${token}`);
-    if (response.data.message === "Email verified successfully") {
-      router.push("/login-sign-up");
+    try {
+      const response = await axios(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/verify-email?token=${token}`
+      );
+      if (response.data.message === "Email verified successfully") {
+        router.push("/login-sign-up");
+      }
+    } catch (error: any) {
+      throw new Error(error);
     }
   };
   return (

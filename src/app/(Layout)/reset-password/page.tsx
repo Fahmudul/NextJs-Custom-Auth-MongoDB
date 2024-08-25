@@ -18,12 +18,16 @@ const ResetPasswordPage = () => {
       alert("Please enter your password");
       return;
     }
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/reset-password?token=${token}&request=reset`,
-      { password }
-    );
-    if (response.data.message === "Password reset successfully") {
-      router.push("/login-sign-up");
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/reset-password?token=${token}&request=reset`,
+        { password }
+      );
+      if (response.data.message === "Password reset successfully") {
+        router.push("/login-sign-up");
+      }
+    } catch (error: any) {
+      throw new Error(error);
     }
   };
   return (

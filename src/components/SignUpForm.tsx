@@ -38,15 +38,20 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
     }
 
     // Send data to server
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/SignUp`,
-      data
-    );
-    if (response.data.status === 200) {
-      toast.success(response?.data?.message);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/SignUp`,
+        data
+      );
+      if (response.data.status === 200) {
+        toast.success(response?.data?.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+    } catch (error: any) {
+      // toast.error(error?.response?.data?.message);
+      throw new Error(error);
     }
   };
   return (
