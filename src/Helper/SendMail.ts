@@ -48,7 +48,7 @@ export const SendEmail = async (
     }/${emailType}?token=${token}">${
       emailType === "verify-email" ? "Verify Email" : "Reset Password"
     }</a> or copy and paste this link in your browser: ${
-      process.env.NEXT_DOMAIN
+      process.env.NEXT_PUBLIC_BASE_URL
     }/${emailType}?token=${token}`,
   };
   let errorMessage;

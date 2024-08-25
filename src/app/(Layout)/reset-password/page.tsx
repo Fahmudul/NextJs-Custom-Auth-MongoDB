@@ -19,7 +19,7 @@ const ResetPasswordPage = () => {
       return;
     }
     const response = await axios.post(
-      `/api/auth/reset-password?token=${token}&request=reset`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/reset-password?token=${token}&request=reset`,
       { password }
     );
     if (response.data.message === "Password reset successfully") {

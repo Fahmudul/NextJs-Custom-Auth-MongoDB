@@ -26,7 +26,10 @@ const LoginForm: React.FC<LoginFormProps> = ({
     };
 
     // Send data to server
-    const response = await axios.post("/api/auth/Login", data);
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/Login`,
+      data
+    );
     if (response?.data?.status === 200) {
       router.push("/Dashboard/profile");
     }
@@ -40,7 +43,10 @@ const LoginForm: React.FC<LoginFormProps> = ({
       alert("Please enter your email");
       return;
     }
-    const response = await axios.post("/api/auth/reset-password", { email });
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/reset-password`,
+      { email }
+    );
     // console.log(response?.data?.status);
     if (response?.data?.status === 200) {
       toast.success("Password reset email sent");

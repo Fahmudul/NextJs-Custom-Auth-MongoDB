@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getUserDetails = async (token: string) => {
   // send request to server to get user details
-  const response = await axios(`${process.env.NEXT_DOMAIN}/api/auth/profile`, {
+  const response = await axios(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/profile`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

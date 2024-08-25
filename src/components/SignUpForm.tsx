@@ -38,7 +38,10 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
     }
 
     // Send data to server
-    const response = await axios.post("/api/auth/SignUp", data);
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/SignUp`,
+      data
+    );
     if (response.data.status === 200) {
       toast.success(response?.data?.message);
       setTimeout(() => {
