@@ -2,7 +2,6 @@
 
 #This project is designed to be minimal and showcase essential authentication features without additional page content.
 
-```markdown
 # Custom Authentication System
 
 This project is a fully functional custom authentication system built with Next.js, TypeScript, and MongoDB. It supports user login, signup, password reset, and email verification. JWT-based authentication is used to ensure secure access to protected routes.
@@ -35,6 +34,7 @@ This project is a fully functional custom authentication system built with Next.
 ### Installation
 
 1. Clone the repository:
+```markdown
 
    ```bash
    git clone https://github.com/yourusername/your-repo-name.git
