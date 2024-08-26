@@ -1,36 +1,141 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+
+#This project is designed to be minimal and showcase essential authentication features without additional page content.
+
+```markdown
+# Custom Authentication System
+
+This project is a fully functional custom authentication system built with Next.js, TypeScript, and MongoDB. It supports user login, signup, password reset, and email verification. JWT-based authentication is used to ensure secure access to protected routes.
+
+## Features
+
+- **User Signup:** Users can sign up with their email and password.
+- **Email Verification:** After signing up, users will receive a verification email to confirm their account.
+- **User Login:** Users can log in with their verified email and password.
+- **Password Reset:** Users can reset their password via email.
+- **JWT Authentication:** JSON Web Tokens are used for secure authentication of logged-in users.
+- **Protected Routes:** Secure routes that require user authentication.
+- **Session Management:** Ensures persistent sessions using JWT tokens stored in cookies.
+
+## Tech Stack
+
+- **Framework:** [Next.js](https://nextjs.org/) (with TypeScript)
+- **Database:** [MongoDB](https://www.mongodb.com/)
+- **Authentication:** JSON Web Tokens (JWT)
+- **Email Service:** [Your chosen email service provider] (e.g., SendGrid, Nodemailer)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js
+- MongoDB
+- Your email service provider's API key
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/your-repo-name.git
+   cd your-repo-name
+   ```
+
+2. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+
+   Create a `.env.local` file in the root directory and add the following environment variables:
+
+   ```bash
+   MONGODB_URI=your-mongodb-connection-string
+   JWT_SECRET=your-jwt-secret
+   EMAIL_API_KEY=your-email-service-api-key
+   EMAIL_SENDER=your-email-sender-address
+   ```
+
+4. Run the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+   The app should be running on [http://localhost:3000](http://localhost:3000).
+
+### Usage
+
+1. **Signup:**
+   - Navigate to `/signup` and create a new account.
+   - Check your email for a verification link and verify your account.
+
+2. **Login:**
+   - Once your account is verified, log in at `/login`.
+
+3. **Password Reset:**
+   - If you've forgotten your password, request a reset via `/reset-password`.
+
+4. **Protected Routes:**
+   - Access protected routes once logged in.
+
+### Folder Structure
+
+```plaintext
+src/
+├── app
+│   ├── (Layout)
+│   │   ├── Dashboard
+│   │   ├── default-layout
+│   │   ├── login-sign-up
+│   │   ├── reset-password
+│   │   └── verify-email
+│   ├── api
+│   │   └── auth
+│   │       ├── Login
+│   │       ├── logout
+│   │       ├── profile
+│   │       ├── reset-password
+│   │       ├── SignUp
+│   │       └── verify-email
+│   ├── favicon.ico
+│   ├── global-error.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── loading.tsx
+│   ├── not-found.tsx
+│   └── page.tsx
+├── components
+├── Database
+│   └── dbConfig.ts
+├── Helper
+│   ├── GetUserDetails.ts
+│   └── SendMail.ts
+├── hooks
+├── Models
+└── middleware.ts
+
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### API Endpoints
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **POST** `/api/auth/Login`: Log in the user and generate a JWT.
+- **POST** `/api/auth/logout`: Log out the user by invalidating the JWT.
+- **POST** `/api/auth/SignUp`: Create a new user account.
+- **POST** `/api/auth/verify-email`: Verify the user's email address.
+- **POST** `/api/auth/reset-password`: Send a password reset email.
+- **PUT** `/api/auth/reset-password`: Update the user's password.
+- **GET** `/api/auth/profile`: Retrieve the user's profile information.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+### Additional Information
 
-To learn more about Next.js, take a look at the following resources:
+The homepage (`/`) is intentionally left empty as this project is focused on demonstrating a simple authentication system. No extra configurations have been made for the homepage.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+For direct access to the authentication functionalities:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Visit the live link: [https://spark-waree.vercel.app](https://spark-waree.vercel.app)
+- To go directly to the login page: [https://spark-waree.vercel.app/login-sign-up](https://spark-waree.vercel.app/login-sign-up)
